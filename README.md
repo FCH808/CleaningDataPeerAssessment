@@ -12,10 +12,14 @@ CleaningDataPeerAssessment
 
 This analysis assumes the data is in your working directory with the same directory structure contained in the zip file.
 
-### Formatting not required for this assessment, but multiple 
+### Formatting not required for this assessment:
+
 Some non-unique variable column appear to be clumped up in groups of three. Variables before and after follow a pattern of X, Y, then Z observations. 
 These are in threes and most likely follow the same pattern. 
-X, Y, and Z added to:
+
+These were identified by tabling all column names which appeared more than once.
+
+X, Y, and Z was added to the end of the three instances of:
 
 	fBodyAcc-bandsEnergy()-1,16      fBodyAcc-bandsEnergy()-1,24       fBodyAcc-bandsEnergy()-1,8     fBodyAcc-bandsEnergy()-17,24     fBodyAcc-bandsEnergy()-17,32 
 
@@ -34,7 +38,9 @@ X, Y, and Z added to:
 	fBodyGyro-bandsEnergy()-33,40    fBodyGyro-bandsEnergy()-33,48    fBodyGyro-bandsEnergy()-41,48    fBodyGyro-bandsEnergy()-49,56    fBodyGyro-bandsEnergy()-49,64 
  
 	fBodyGyro-bandsEnergy()-57,64     fBodyGyro-bandsEnergy()-9,16 
+	
 Add these modified features to the datasets.
+
 ### /end Formatting that was not required. 
 
 
@@ -105,4 +111,4 @@ Integrity Check: mean for subject 1 Walking is still 0.2773308.
 Write data to text files for submission.
 
 
-Please refer to the CodeBook.md file for variable names and meanings.
+Please refer to the CodeBook.md file for variable names and meanings that were added/modified beyond what is covered in the original feature_info.txt.
