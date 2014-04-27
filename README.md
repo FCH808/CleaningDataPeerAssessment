@@ -16,6 +16,7 @@ This analysis assumes the data is in your working directory with the same direct
 Some non-unique variable column appear to be clumped up in groups of three. Variables before and after follow a pattern of X, Y, then Z observations. 
 These are in threes and most likely follow the same pattern. 
 X, Y, and Z added to:
+
 	fBodyAcc-bandsEnergy()-1,16      fBodyAcc-bandsEnergy()-1,24       fBodyAcc-bandsEnergy()-1,8     fBodyAcc-bandsEnergy()-17,24     fBodyAcc-bandsEnergy()-17,32 
 
     fBodyAcc-bandsEnergy()-25,32     fBodyAcc-bandsEnergy()-25,48     fBodyAcc-bandsEnergy()-33,40     fBodyAcc-bandsEnergy()-33,48     fBodyAcc-bandsEnergy()-41,48 
