@@ -53,7 +53,7 @@ Add Activities to each test/train set.
 Add SubjectIDs to each test/train set. 
 Combined train set and test set. Train set first.
 
-3 Extracts only the measurements on the mean and standard deviation for each measurement. 
+#### 3 Extracts only the measurements on the mean and standard deviation for each measurement. 
 
 str_detect() in the stringr package will return a logical boolean for
 whether the string "mean" appears in the vector of names of columns.
@@ -68,7 +68,7 @@ Since these are indeed (weighted) means of these variables,
 these were left in as they may be valuable means and can easily be subsetted out if not needed.
 There are no associated standard deviations for these meanFreq variables.
 
-4 Use descriptive activity names to name the activities in the data set
+#### 4 Use descriptive activity names to name the activities in the data set
 
 Integrity Check: Table occurrences of Activity numbers (1-6)
 
@@ -76,12 +76,12 @@ Descriptions for activities pulled from the "activity_labels.txt" file.
 
 Integrity Check: Totals remain in the same order and are labelled in the order of "activity_labels.txt". 
 
-5 Appropriately labels the data set with descriptive activity names. 
+#### 5 Appropriately labels the data set with descriptive activity names. 
 
 Create 'data' dataframe which has only the subjectIDs, Activities, and summaries data.
 
 
-6 Creates a second, independent tidy data set with the average of each variable for each activity and each subject. 
+#### 6 Creates a second, independent tidy data set with the average of each variable for each activity and each subject. 
 
 Rename variables to be more descriptive. Use underscore_ naming scheme for ease of calling variables within R.
 fixed = TRUE argument needed to deal with '()-'
