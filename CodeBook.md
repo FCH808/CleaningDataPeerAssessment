@@ -31,12 +31,12 @@ Activity was pulled from the y_train.txt and y_test.txt files.
 
 The Activity variable was made into a factor variable, with the level names for each of the 6 activities changing to match the descriptions in the activities_labels.txt:
 
-1 WALKING
-2 WALKING_UPSTAIRS
-3 WALKING_DOWNSTAIRS
-4 SITTING
-5 STANDING
-6 LAYING
+	1 WALKING
+	2 WALKING_UPSTAIRS
+	3 WALKING_DOWNSTAIRS
+	4 SITTING
+	5 STANDING
+	6 LAYING
 
 As this is only a codebook for variables, please refer to the README.md file for specifics on choices made in analyzing this data.
 
