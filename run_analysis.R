@@ -155,55 +155,30 @@ names(data)<- gsub("-meanFreq()", "Weighted_mean_Frequency", names(data), fixed 
 
 names(data)
 
-library(psych)
+library(plyr)
 
-## The psych package will return descriptive statistics of the dataset, broken down by Subject Id and Activity 
-## ( by passing in a list() of variables to break down the data by)
-## mat = TRUE can be used to return this information as a matrix.
-## Only columns 3 to 81 are passed in since descriptive statistics on Subject ID/Activity are not needed.
-tidyData<- describeBy(data[3:81], list(data$SubjectID, data$Activity), mat = TRUE)
-
-#Group1 is our first grouping variable, SubjectID and group2 is our second, Activity. Assign these names back to the vars.
-names(tidyData)[2:3]<- c("SubjectID", "Activity")
-
-
-tidyData<- cbind( rownames(tidyData), tidyData) #Convert row.names to the first column of the dataset.
-rownames(tidyData)<- NULL #Remove the row names since they are now the first variable.
-names(tidyData)[1]<- "Signal" #Rename first row to VariableID. 
-
-# Convert Signal variable form factor variable to strings
-tidyData$Signal<-as.character(tidyData$Signal)
-
-#Remove the number that was added to each Signal variable for each combination of SubjectID and Activity. 
-tidyData$Signal<- gsub("[0-9]","",tidyData$Signal)
-
-
+tidyData<- ddply(data, .(Activity, SubjectID), numcolwise(mean))
 
 ## Integrity Check: The average of SubjectID(5) and Activity(2) in the uncompressed data is 0.2773308
 ## This matches the tidyData set for this combination produced by describeBy: 0.2773308 
 mean(data$Time_Domain_Body_Acceleration_mean_X[data$SubjectID == 1 & data$Activity == "Walking"]) 
-tidyData[1,]
 
-# While all of the descriptive statistics are useful, this assignment only asks for the mean of each signal mean for 
-# each SubjectID/Activity Combination. We can extract the columns of interest.
-tidyData<-(tidyData[,c(1,3,4,7)])
-
-
-#Integrity check: The activity label for tidyData$Activity matches the original labels vector.
-tidyData[1,]
-table(x_all$Activity)
-
+tidyData[tidyData$SubjectID == 1 & tidyData$Activity == "Walking",3]
 
 ## We will create a second tidy dataset in case we want this to be a wide format instead of long format.
 library(reshape)
 
-tidyDataWide<- reshape(tidyData, idvar = c("SubjectID", "Activity"), timevar = "Signal", direction = "wide")
-# Remove 'mean.' that added to each variable in the wide format conversion. fixed = TRUE to only remove "mean."
-names(tidyDataWide)<-gsub("mean.", "", names(tidyDataWide), fixed =TRUE)
+tidyDataLong<- reshape(tidyData, idvar = c("SubjectID", "Activity"), varying = names(tidyData[3:81]), v.names = "Mean", direction = "long",timevar = "Signal" , times = names(tidyData[3:81]), new.row.names = 1:14220)
 
 #Integrity Check: mean for subject 1 Walking is still 0.2773308.
-tidyDataWide$Time_Domain_Body_Acceleration_mean_X[tidyDataWide$SubjectID == 1 & tidyDataWide$Activity == "Walking"]
+tidyData$Time_Domain_Body_Acceleration_mean_X[tidyData$SubjectID == 1 & tidyData$Activity == "Walking"]
 
 # Write data to text files for submission.
-write.table(tidyData, file = "tidyDataLongFormat.txt")
-write.table(tidyDataWide, file = "tidyDataWideFormat.txt")
+write.table(tidyData, file = "tidyDataWideFormat.txt")
+write.table(tidyDataLong, file = "tidyDataLongFormat.txt")
+
+## data.table instead of ddply
+# library(data.table)
+# data<- data.table(data)
+# data[ , lapply(.SD, mean), by = list( subjectID, activity)]
+
